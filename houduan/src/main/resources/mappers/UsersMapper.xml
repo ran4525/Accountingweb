@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.houduan.mapper.UsersMapper">
+
+    <!-- 查询结果的映射 -->
+    <resultMap id="a" type="com.example.houduan.pojo.Users">
+        <result property="name" column="Sname"/>
+        <result property="password" column="Spassword"/>
+    </resultMap>
+
+    <!-- 登录查询 -->
+    <select id="login" resultMap="a">
+        select * from user where Sname=#{name}
+    </select>
+
+    <!-- 注册插入语句 -->
+    <insert id="regist" parameterType="com.example.houduan.pojo.Users">
+        INSERT INTO user(Sname, Spassword)
+        VALUES (#{name}, #{password});
+    </insert>
+
+    <insert id="shouru" parameterType="com.example.houduan.pojo.Bills">
+        INSERT INTO shouru(Snumber,Sname,Stype,Sdate,Cex)
+        VALUES (#{number},#{name}, #{types},#{date},#{cex});
+    </insert>
+
+    <insert id="zhichu" parameterType="com.example.houduan.pojo.Bills">
+        INSERT INTO zhichu(Snumber,Sname,Stype,Sdate,Cex)
+        VALUES (#{number},#{name}, #{types},#{date},#{cex});
+    </insert>
+
+    <!-- 查询结果的映射 -->
+    <resultMap id="b" type="com.example.houduan.pojo.Bills">
+        <result property="number" column="Snumber"/>
+        <result property="name" column="Sname"/>
+        <result property="types" column="Stype"/>
+        <result property="date" column="Sdate"/>
+        <result property="cex" column="cex"/>
+    </resultMap>
+
+    <!-- 账单查询 -->
+    <select id="searchshouru" resultMap="b">
+        SELECT * FROM shouru WHERE Sdate = #{date} AND Sname = #{name}
+    </select>
+    <select id="searchzhichu" resultMap="b">
+        SELECT * FROM zhichu WHERE Sdate = #{date} AND Sname = #{name}
+    </select>
+</mapper>

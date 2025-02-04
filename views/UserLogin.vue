@@ -139,8 +139,8 @@ export default {
 
   .image-container {
   display: flex;
-  justify-content: center; /* 横向居中 */
-  align-items: center;     /* 纵向居中 */
+  justify-content: center;
+  align-items: center;
 }
   
   .slider {

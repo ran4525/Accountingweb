@@ -9,26 +9,6 @@
           </el-submenu>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-menu"></i><el-link :underline="false" @click="getTurn">账单明细</el-link></template>
-            <el-menu-item-group>
-              <el-menu-item index="2-1">年</el-menu-item>
-              <el-menu-item index="2-2">月</el-menu-item>
-              <el-menu-item index="2-3">日</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title"><i class="el-icon-setting"></i>设置</template>
-            <el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="3-1">选项1</el-menu-item>
-              <el-menu-item index="3-2">选项2</el-menu-item>
-            </el-menu-item-group>
-            <el-menu-item-group title="分组2">
-              <el-menu-item index="3-3">选项3</el-menu-item>
-            </el-menu-item-group>
-            <el-submenu index="3-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="3-4-1">选项4-1</el-menu-item>
-            </el-submenu>
           </el-submenu>
         </el-menu>
       </el-aside>
@@ -36,7 +16,6 @@
   </div>
   <div class="mid">
     <button @click="dialogFormVisible = true" style="background: #67C23A">+每日支出</button>
-    
     <el-dialog title="提示" :visible.sync="dialogFormVisible" width="30%">
       <el-form ref="form1" :model="form" label-width="80px">
         <el-form-item label="金额">
@@ -63,7 +42,6 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-
     <el-table
     ref="filterTable"
     :data="tableData2"
@@ -88,7 +66,6 @@
       label="备注"
       :formatter="formatter">
     </el-table-column>
-
   </el-table>
 
   </div>
@@ -149,38 +126,36 @@
   
   <script>
   import axios from 'axios';
-// 创建一个新的 Date 对象来获取当前日期
-const today = new Date();
+  // 创建一个新的 Date 对象来获取当前日期
+  const today = new Date();
 
-// 获取日期的各个部分
-const year = today.getFullYear();
-const month = today.getMonth() + 1; // 月份是从0开始的，所以加1
-const day = today.getDate();
-
-// 格式化日期
-const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+  // 获取日期的各个部分
+  const year = today.getFullYear();
+  const month = today.getMonth() + 1; // 月份是从0开始的，所以加1
+  const day = today.getDate();
+  // 格式化日期
+  const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
 
   export default {
     data() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = today.getMonth() + 1;
-  const day = today.getDate();
-  const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
-
-    return {
-      dialogVisible: false,
-      dialogFormVisible: false,
-      form: {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth() + 1;
+      const day = today.getDate();
+      const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
+      return {
+        dialogVisible: false,
+        dialogFormVisible: false,
+        form: {
         name: '',  // 金额
         region: '',  // 类型
         desc: '',  // 备注
         date: formattedDate  // 当前日期
-      },
-      tableData1: [],
-      tableData2: []
-    };
-  },
+          },
+        tableData1: [],
+        tableData2: []
+      };
+    },
   mounted() {
     // 页面加载时获取当天的账单数据
     this.getTodayBills();
